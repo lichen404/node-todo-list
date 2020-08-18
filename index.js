@@ -17,8 +17,22 @@ module.exports.add = async (titles) => {
         console.log(e)
     })
 }
-module.exports.clear = async () => {
-    await db.write([])
+module.exports.clear = async (title) => {
+    if (typeof title === 'string') {
+        const list = await db.read().catch(e => {
+            console.log(e)
+        })
+        const index = list.findIndex(task => task.title === title)
+        if (index === -1) {
+          return ('task don\'t exists')
+        } else {
+            list.splice(index, 1)
+            await db.write(list)
+        }
+    } else {
+        await db.write([])
+    }
+
 }
 module.exports.showAll = async () => {
     const list = await db.read().catch(e => {

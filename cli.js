@@ -15,8 +15,14 @@ if(program.add){
    })
 }
 if(program.clear){
-   api.clear().then(()=>{
-       console.log('clear')
+
+   api.clear(program.clear).then((res)=>{
+       if(res){
+           console.log(res)
+       }
+       else {
+           console.log('clear.')
+       }
    }).catch((e)=>{
        console.log(e)
    })

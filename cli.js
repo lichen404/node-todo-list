@@ -1,10 +1,11 @@
+#!/usr/bin/env node
 const {program} = require('commander');
 const api = require('./index.js')
-
+const pkg =require("./package.json")
 program
     .option('-a, --add <tasks...>', 'add new task')
     .option('-c, --clear [task]','clear named task or all tasks')
-
+    .option('-p, --patch','view package version')
 
 program.parse(process.argv);
 if(program.add){
@@ -27,6 +28,10 @@ if(program.clear){
        console.log(e)
    })
 }
+if(program.patch){
+    console.log(pkg.version)
+}
 if(process.argv.length===2){
     void api.showAll()
 }
+
